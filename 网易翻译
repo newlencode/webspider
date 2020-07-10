@@ -1,0 +1,24 @@
+import requests as r
+import json
+query_str = input("请输入要翻译的内容：")
+url = 'http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule'
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'}
+data = {'i': query_str,
+'from': 'AUTO',
+'to': 'AUTO',
+'smartresult': 'dict',
+'client': 'fanyideskweb',
+'salt': 15943668191838,
+'sign': '98722003b80a3e9fef3ec0be8fdc15ec',
+'ts': 1594366819183,
+'bv': '02a6ad4308a3443b3732d855273259bf',
+'doctype': 'json',
+'version': 2.1,
+'keyfrom': 'fanyi.web',
+'action': 'FY_BY_CLICKBUTTION'}
+response = r.post(url,data=data,headers=headers)
+html_str = response.content.decode()
+target = json.loads(html_str)
+result = target["translateResult"][0][0]['tgt']
+print('翻译结果是：%s' %result)
+
