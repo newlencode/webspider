@@ -1,0 +1,11 @@
+from selenium import webdriver
+import time
+browser = webdriver.Chrome()
+browser.maximize_window()
+browser.get("http://www.neeq.com.cn/disclosure/supervise.html")
+time.sleep(3)
+webs = browser.find_elements_by_xpath('//*[@id="table"]/table/tbody//tr/td[3]/a')
+for web in webs:
+    print('标题:',web.text)
+    print('内容:',web.get_attribute("href"))
+browser.quit()
